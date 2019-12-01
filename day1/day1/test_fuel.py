@@ -1,6 +1,6 @@
-from ..fuel import fuel_required
-from ..fuel import fuel_requirements
-from ..fuel import total_fuel
+from day1.day1.fuel import fuel_required
+from day1.day1.fuel import fuel_requirements
+from day1.day1.fuel import total_fuel
 
 
 def test_mass_12():

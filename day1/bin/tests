@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pipenv run nosetests day1 --with-coverage --cover-branches --cover-package=day1
