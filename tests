@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
+(cd day1 && bin/tests)
 (cd day1 && test $(bin/part1 < input) -eq 3346639)
 (cd day1 && test $(bin/part2 < input) -eq 5017110)
