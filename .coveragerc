@@ -1,0 +1,27 @@
+[run]
+branch = True
+
+[paths]
+source = 
+    day1
+    day2
+
+[report]
+omit =
+    */__main__.py
+    */typing.py
+    */test/*
+    */test*.py
+
+exclude_lines =
+    pragma: no cover
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
+
+[html]
+directory = coverage
