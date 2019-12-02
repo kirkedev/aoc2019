@@ -2,5 +2,7 @@
 set -e
 pipenv run coverage erase
 day1/bin/tests
+echo
 day2/bin/tests
+echo
 pipenv run coverage report
