@@ -1,6 +1,5 @@
 from typing import List
 from re import finditer
-
 from .computer import Computer
 
 

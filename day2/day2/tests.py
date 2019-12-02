@@ -2,7 +2,6 @@ from io import StringIO
 from . import parse_input
 from . import calculate
 from .instruction import Operation
-from .instruction import instructions
 from .computer import Computer
 
 
@@ -14,9 +13,9 @@ def test_parse_input():
 
 def test_parse_instruction():
     io = StringIO("2,4,4,5,99,0\n")
-    line = next(io)
-    codes = parse_input(line)
-    instruction = next(instructions(codes))
+    codes = parse_input(next(io))
+    computer = Computer(codes)
+    instruction = next(computer.instructions)
 
     assert instruction.operation == Operation.MULTIPLY
     assert instruction.first == 99
@@ -26,9 +25,9 @@ def test_parse_instruction():
 
 def test_parse_instructions():
     io = StringIO("1,0,0,0,2,3,0,3,99\n")
-    line = next(io)
-    codes = parse_input(line)
-    first, second = instructions(codes)
+    codes = parse_input(next(io))
+    computer = Computer(codes)
+    first, second = computer.instructions
 
     assert first.operation == Operation.ADD
     assert first.first == 1
@@ -43,8 +42,8 @@ def test_parse_instructions():
 
 def test_execute_program():
     io = StringIO("1,9,10,3,2,3,11,0,99,30,40,50\n")
-    line = next(io)
-    computer = Computer(parse_input(line))
+    codes = parse_input(next(io))
+    computer = Computer(codes)
     computer.execute_program()
     assert computer.memory == [3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50]
 
