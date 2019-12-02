@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+pipenv run coverage erase
+day1/bin/lint
+day1/bin/tests
+day2/bin/lint
+day2/bin/tests
+pipenv run coverage report

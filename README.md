@@ -10,3 +10,8 @@ Run all solutions and verify they output the correct answer.
 ```bash
 bin/solutions
 ```
+
+Run all unit tests with coverage
+```bash
+bin/tests
+```
