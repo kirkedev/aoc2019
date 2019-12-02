@@ -1,7 +1,26 @@
 #!/usr/bin/env bash
-set -e
+error=0
 
-day1/bin/lint
-day1/bin/tests
-(cd day1 && test $(bin/part1 < input) -eq 3346639)
-(cd day1 && test $(bin/part2 < input) -eq 5017110)
+test_solution() {
+    day=$1
+    part=$2
+    expected=$3
+
+    echo
+    echo "Running $day $part..."
+
+    output=$(cd $day && bin/$part < input)
+    echo $output
+
+    if [ $output -eq $expected ]; then 
+        echo "OK"
+    else
+        echo "ERROR: expected $expected"
+        error=1
+    fi
+}
+
+test_solution "day1" "part1" 3346639
+test_solution "day1" "part2" 5017110
+
+exit $error
