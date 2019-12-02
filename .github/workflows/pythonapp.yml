@@ -1,0 +1,32 @@
+name: Python application
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        python -m pipenv install --dev --system
+
+    - name: Lint
+      run: bin/lint
+
+    - name: Unit tests
+      run: bin/tests
+
+    - name: Solutions tests
+      run: bin/solutions
+
+    - name: Upload coverage report to coveralls
+      run: pipenv run coveralls
