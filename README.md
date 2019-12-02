@@ -8,5 +8,5 @@ You'll need to [install pipenv](https://github.com/pypa/pipenv#installation) to 
 ### Commands
 Run all solutions and verify they output the correct answer.
 ```bash
-./tests
+bin/tests
 ```

@@ -16,7 +16,7 @@ test_solution() {
         echo "OK"
     else
         echo "ERROR: expected $expected"
-        error=1
+        error+=1
     fi
 }
 
