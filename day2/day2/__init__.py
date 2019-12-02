@@ -1,9 +1,10 @@
-from typing import NamedTuple
+from typing import NamedTuple, Iterable
 from typing import Iterator
 from typing import List
 from enum import IntEnum
 from re import finditer
-from itertools import islice
+from itertools import takewhile
+from itertools import zip_longest
 
 
 class OpCode(IntEnum):
@@ -16,38 +17,38 @@ class Instruction(NamedTuple):
     code: OpCode
     first: int
     second: int
-    position: int
+    address: int
+
+
+def chunk(iterable: Iterable, size: int):
+    args = [iter(iterable)] * size
+    return zip_longest(*args)
 
 
 def parse_input(line: str) -> List[int]:
     return list(map(lambda match: int(match[0]), finditer("\\d+", line)))
 
 
-def instructions(codes: List[int]) -> Iterator[Instruction]:
-    position = 0
-    code = codes[position]
-
-    while code != OpCode.EXIT:
-        (first, second, storage) = islice(codes, position + 1, position + 4)
-        yield Instruction(code=OpCode(code), first=codes[first], second=codes[second], position=storage)
-        position += 4
-        code = codes[position]
+def instructions(memory: List[int]) -> Iterator[Instruction]:
+    for group in takewhile(lambda it: it[0] != OpCode.EXIT, chunk(memory, 4)):
+        (code, first, second, address) = group
+        yield Instruction(code=code, first=memory[first], second=memory[second], address=address)
 
 
-def program(codes: List[int]) -> List[int]:
-    for instruction in instructions(codes):
+def execute(memory: List[int]) -> List[int]:
+    for instruction in instructions(memory):
         operator, first, second, position = instruction
 
         if operator == OpCode.ADD:
-            codes[position] = first + second
+            memory[position] = first + second
 
         if operator == OpCode.MULTIPLY:
-            codes[position] = first * second
+            memory[position] = first * second
 
-    return codes
+    return memory
 
 
 def get_result(codes: List[int], noun: int, verb: int) -> int:
     codes[1] = noun
     codes[2] = verb
-    return program(codes)[0]
+    return execute(codes)[0]
