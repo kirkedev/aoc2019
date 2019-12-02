@@ -15,3 +15,8 @@ Run all unit tests with coverage
 ```bash
 bin/tests
 ```
+
+Lint entire project
+```bash
+bin/lint
+```

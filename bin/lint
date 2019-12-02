@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+day1/bin/lint
+day2/bin/lint
