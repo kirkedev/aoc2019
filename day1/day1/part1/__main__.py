@@ -1,4 +1,4 @@
 from .. import read_input
-from ..fuel import fuel_required
+from .. import required_fuel
 
-print(sum(map(fuel_required, read_input())))
+print(sum(map(required_fuel, read_input())))
