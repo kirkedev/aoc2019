@@ -25,7 +25,7 @@ def parse_input(line: str) -> List[int]:
     return list(map(lambda match: int(match[0]), finditer("\\d+", line)))
 
 
-def commands(codes: List[int]) -> Iterator[OpCode]:
+def commands(codes: List[int]) -> Iterator[IntCode]:
     position = 0
     code = codes[position]
 
