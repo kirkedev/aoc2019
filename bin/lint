@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-day1/bin/lint
-day2/bin/lint
+set -e
+pipenv run flake8
+pipenv run mypy day1 day2

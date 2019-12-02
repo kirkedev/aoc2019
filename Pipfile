@@ -6,8 +6,9 @@ verify_ssl = true
 [dev-packages]
 nose = "*"
 coverage = "*"
-mypy = "*"
 coveralls = "*"
+flake8 = "*"
+mypy = "*"
 
 [packages]
 

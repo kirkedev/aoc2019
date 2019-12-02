@@ -29,4 +29,4 @@ def chunk(iterable: Iterable, size: int) -> Iterable[Tuple]:
 def instructions(memory: List[int]) -> Iterator[Instruction]:
     for group in takewhile(lambda it: it[0] != Operation.EXIT, chunk(memory, 4)):
         (operation, first, second, address) = group
-        yield Instruction(operation=operation, first=memory[first], second=memory[second], address=address)
+        yield Instruction(operation, memory[first], memory[second], address)
