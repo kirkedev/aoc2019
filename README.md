@@ -17,6 +17,6 @@ bin/solutions
 # Run all unit tests with coverage
 bin/tests
 
-# Lint entire project
+# Lint project code
 bin/lint
 ```

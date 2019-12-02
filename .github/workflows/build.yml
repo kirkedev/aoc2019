@@ -5,8 +5,10 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout repository
+      uses: actions/checkout@v1
 
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
@@ -19,13 +21,13 @@ jobs:
         pip install pipenv
         pipenv install --dev --system
 
-    - name: Lint
+    - name: Lint code
       run: bin/lint
 
-    - name: Unit tests
+    - name: Run unit tests
       run: bin/tests
 
-    - name: Solutions tests
+    - name: Run solutions tests
       run: bin/solutions
 
     - name: Upload coverage report to coveralls
