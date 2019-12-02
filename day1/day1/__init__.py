@@ -1,9 +1,8 @@
 from typing import Iterator
-from sys import stdin
 
 
-def read_input() -> Iterator[int]:
-    return map(int, stdin)
+def parse_input(lines: Iterator[str]) -> Iterator[int]:
+    return map(int, lines)
 
 
 def required_fuel(mass: int) -> int:

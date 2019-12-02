@@ -1,5 +1,12 @@
+from io import StringIO
+from . import parse_input
 from . import required_fuel
 from . import total_fuel
+
+
+def test_read_input():
+    lines = "\n".join(("88062", "147838", "73346"))
+    assert list(parse_input(StringIO(lines))) == [88062, 147838, 73346]
 
 
 def test_mass_12():

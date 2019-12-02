@@ -1,4 +1,5 @@
-from .. import read_input
+from sys import stdin
+from .. import parse_input
 from .. import required_fuel
 
-print(sum(map(required_fuel, read_input())))
+print(sum(map(required_fuel, parse_input(stdin))))
