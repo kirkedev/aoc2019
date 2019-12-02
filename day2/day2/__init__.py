@@ -5,8 +5,6 @@ from enum import IntEnum
 from re import finditer
 from itertools import islice
 
-EXIT = 99
-
 
 class OpCode(IntEnum):
     ADD = 1
@@ -29,7 +27,7 @@ def commands(codes: List[int]) -> Iterator[IntCode]:
     position = 0
     code = codes[position]
 
-    while code != EXIT:
+    while code != OpCode.EXIT:
         (first, second, storage) = islice(codes, position + 1, position + 4)
         yield IntCode(code=OpCode(code), first=codes[first], second=codes[second], position=storage)
         position += 4
