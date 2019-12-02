@@ -1,5 +1,5 @@
 from sys import stdin
 from .. import parse_input
-from .. import get_result
+from .. import calculate
 
-print(get_result(parse_input(next(stdin)), 12, 2))
+print(calculate(parse_input(next(stdin)), 12, 2))
