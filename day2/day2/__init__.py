@@ -12,7 +12,7 @@ class OpCode(IntEnum):
     EXIT = 99
 
 
-class IntCode(NamedTuple):
+class Instruction(NamedTuple):
     code: OpCode
     first: int
     second: int
@@ -23,20 +23,20 @@ def parse_input(line: str) -> List[int]:
     return list(map(lambda match: int(match[0]), finditer("\\d+", line)))
 
 
-def commands(codes: List[int]) -> Iterator[IntCode]:
+def instructions(codes: List[int]) -> Iterator[Instruction]:
     position = 0
     code = codes[position]
 
     while code != OpCode.EXIT:
         (first, second, storage) = islice(codes, position + 1, position + 4)
-        yield IntCode(code=OpCode(code), first=codes[first], second=codes[second], position=storage)
+        yield Instruction(code=OpCode(code), first=codes[first], second=codes[second], position=storage)
         position += 4
         code = codes[position]
 
 
 def program(codes: List[int]) -> List[int]:
-    for command in commands(codes):
-        operator, first, second, position = command
+    for instruction in instructions(codes):
+        operator, first, second, position = instruction
 
         if operator == OpCode.ADD:
             codes[position] = first + second

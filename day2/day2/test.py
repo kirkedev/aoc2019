@@ -1,7 +1,7 @@
 from io import StringIO
 from . import OpCode
 from . import parse_input
-from . import commands
+from . import instructions
 from . import program
 from . import get_result
 
@@ -12,23 +12,23 @@ def test_parse_input():
     assert list(parse_input(line)) == [1, 0, 0, 3, 1]
 
 
-def test_parse_command():
+def test_parse_instruction():
     io = StringIO("2,4,4,5,99,0\n")
     line = next(io)
     codes = parse_input(line)
-    command = next(commands(codes))
+    instruction = next(instructions(codes))
 
-    assert command.code == OpCode.MULTIPLY
-    assert command.first == 99
-    assert command.second == 99
-    assert command.position == 5
+    assert instruction.code == OpCode.MULTIPLY
+    assert instruction.first == 99
+    assert instruction.second == 99
+    assert instruction.position == 5
 
 
-def test_parse_commands():
+def test_parse_instructions():
     io = StringIO("1,0,0,0,2,3,0,3,99\n")
     line = next(io)
     codes = parse_input(line)
-    first, second = commands(codes)
+    first, second = instructions(codes)
 
     assert first.code == OpCode.ADD
     assert first.first == 1
