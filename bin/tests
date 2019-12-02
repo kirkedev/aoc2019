@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 pipenv run coverage erase
 day1/bin/tests
 day2/bin/tests
