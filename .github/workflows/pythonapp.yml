@@ -30,3 +30,5 @@ jobs:
 
     - name: Upload coverage report to coveralls
       run: pipenv run coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ZAUbOh6rcKCozwLDpBTJ4ubo8OdqshHl0
