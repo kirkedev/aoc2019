@@ -1,9 +1,9 @@
 from io import StringIO
-from . import OpCode
 from . import parse_input
-from . import instructions
 from . import execute
 from . import get_result
+from .instruction import OpCode
+from .instruction import instructions
 
 
 def test_parse_input():
