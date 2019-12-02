@@ -1,5 +1,4 @@
 from .fuel import fuel_required
-from .fuel import fuel_requirements
 from .fuel import total_fuel
 
 
@@ -17,14 +16,6 @@ def test_mass_1969():
 
 def test_mass_100756():
     assert fuel_required(100756) == 33583
-
-
-def test_fuel_mass_654():
-    assert list(fuel_requirements(654)) == [216, 70, 21, 5]
-
-
-def test_fuel_mass_33583():
-    assert list(fuel_requirements(33583)) == [11192, 3728, 1240, 411, 135, 43, 12, 2]
 
 
 def test_total_fuel_14():
