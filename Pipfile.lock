@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "eaa58380145509afdc182dd2934d5ce7a3d081143fc370fd1d170056fd19c2ba"
+            "sha256": "a37fc6cfd2d002a4020b8dbf41bf965db5c0d05e14231c82c19a34c228e88b52"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.7"
+            "python_version": "3.8"
         },
         "sources": [
             {
@@ -71,11 +71,11 @@
         },
         "coveralls": {
             "hashes": [
-                "sha256:9bc5a1f92682eef59f688a8f280207190d9a6afb84cef8f567fa47631a784060",
-                "sha256:fb51cddef4bc458de347274116df15d641a735d3f0a580a9472174e2e62f408c"
+                "sha256:1e7935386ee3e8e6a5b2bac90797ed324231193a960571a57c7ea995cc6f2c78",
+                "sha256:f2f68b03c457e375723b0c44f2ddf631145e7eb70ace7d701abd801477effa8c"
             ],
             "index": "pypi",
-            "version": "==1.8.2"
+            "version": "==1.9.1"
         },
         "docopt": {
             "hashes": [
