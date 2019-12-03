@@ -34,9 +34,3 @@ jobs:
       run: pipenv run coveralls
       env:
         COVERALLS_REPO_TOKEN:  ${{ secrets.COVERALLS_REPO_TOKEN }}
-
-#    - name: Upload coverage report
-#      uses: coverallsapp/github-action@master
-#      with:
-#        github-token: ${{ secrets.GITHUB_TOKEN }}
-#        path-to-lcov: .coverage
