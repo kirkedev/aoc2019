@@ -3,28 +3,20 @@ from typing import NamedTuple
 from typing import Iterator
 from typing import Iterable
 from typing import List
+from enum import Enum
 from itertools import accumulate
 from itertools import repeat
 from itertools import islice
-from enum import Enum
 
 Position = Tuple[int, int]
 Delta = Tuple[int, int]
 
 
 class Direction(Enum):
-    LEFT = 'L'
-    UP = 'U'
-    RIGHT = 'R'
-    DOWN = 'D'
-
-    @property
-    def delta(self) -> Delta:
-        return (-1, 0) if self == Direction.LEFT \
-            else (0, -1) if self == Direction.UP \
-            else (1, 0) if self == Direction.RIGHT \
-            else (0, 1) if self == Direction.DOWN \
-            else (0, 0)
+    L = LEFT = (-1, 0)
+    U = UP = (0, -1)
+    R = RIGHT = (1, 0)
+    D = DOWN = (0, 1)
 
 
 class Vector(NamedTuple):
@@ -32,12 +24,12 @@ class Vector(NamedTuple):
     distance: int
 
 
-def step(position: Position, delta: Delta) -> Position:
-    return position[0] + delta[0], position[1] + delta[1]
+def step(position: Position, direction: Delta) -> Position:
+    return position[0] + direction[0], position[1] + direction[1]
 
 
 def move(start: Position, vector: Vector) -> Iterator[Position]:
-    result = accumulate(repeat(vector.direction.delta, vector.distance), step, initial=start)  # type: ignore
+    result = accumulate(repeat(vector.direction.value, vector.distance), step, initial=start)  # type: ignore
     return islice(result, 1, None)
 
 

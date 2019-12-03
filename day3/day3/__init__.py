@@ -11,7 +11,7 @@ vector = r'([LURD])(\d+)'
 
 
 def parse_vector(direction: str, distance: str) -> Vector:
-    return Vector(direction=Direction(direction), distance=int(distance))
+    return Vector(direction=Direction[direction], distance=int(distance))
 
 
 def parse_wire(line: str) -> Wire:
