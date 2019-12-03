@@ -34,8 +34,8 @@ def move(start: Position, vector: Vector) -> Iterator[Position]:
 
 
 def positions(vectors: Iterator[Vector]) -> List[Position]:
-    result: List[Position] = []
     position = (0, 0)
+    result = [position]
 
     for vector in vectors:
         result.extend(move(position, vector))
@@ -44,8 +44,8 @@ def positions(vectors: Iterator[Vector]) -> List[Position]:
     return result
 
 
-def intersections(first: Iterable[Position], second: Iterable[Position]) -> Iterable[Position]:
-    return set(first).intersection(set(second))
+def intersections(first: List[Position], second: List[Position]) -> Iterable[Position]:
+    return set(first[1:]).intersection(set(second[1:]))
 
 
 def manhattan_distance(position: Position) -> int:
