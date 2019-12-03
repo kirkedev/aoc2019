@@ -40,9 +40,9 @@ class Computer:
     def execute_program(self):
         memory = self.memory
 
-        for operator, first, second, address in self.instructions:
-            if operator == Operation.ADD:
+        for operation, first, second, address in self.instructions:
+            if operation == Operation.ADD:
                 memory[address] = first + second
 
-            if operator == Operation.MULTIPLY:
+            if operation == Operation.MULTIPLY:
                 memory[address] = first * second
