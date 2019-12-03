@@ -31,6 +31,6 @@ jobs:
       run: bin/solutions
 
     - name: Upload coverage report
-      run: pipenv run coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
