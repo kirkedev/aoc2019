@@ -2,9 +2,10 @@
 branch = True
 
 [paths]
-source = 
+source =
     day1
     day2
+    day3
 
 [report]
 omit =
