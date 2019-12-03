@@ -25,5 +25,6 @@ test_solution "day1" "part2" 5017110
 test_solution "day2" "part1" 3306701
 test_solution "day2" "part2" 7621
 test_solution "day3" "part1" 293
+test_solution "day3" "part2" 27306
 
 exit $error

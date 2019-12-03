@@ -8,6 +8,7 @@ from . import parse_vector
 from . import parse_wire
 from . import parse_input
 from . import closest_intersection
+from . import shortest_intersection
 
 
 def test_parse_vector():
@@ -47,7 +48,7 @@ def test_positions():
 
 def test_intersection():
     io = StringIO('R8,U5,L5,D3\nU7,R6,D4,L4')
-    first, second = parse_input(io)
+    first, second = map(positions, parse_input(io))
     assert list(intersections(first, second)) == [(6, -5), (3, -3)]
 
 
@@ -60,3 +61,14 @@ def test_closest_intersection():
 
     io = StringIO('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51\nU98,R91,D20,R16,D67,R40,U7,R15,U6,R7')
     assert closest_intersection(parse_input(io)) == 135
+
+
+def test_shortest_intersection():
+    io = StringIO('R8,U5,L5,D3\nU7,R6,D4,L4')
+    assert shortest_intersection(parse_input(io)) == 30
+
+    io = StringIO('R75,D30,R83,U83,L12,D49,R71,U7,L72\nU62,R66,U55,R34,D71,R55,D58,R83')
+    assert shortest_intersection(parse_input(io)) == 610
+
+    io = StringIO('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51\nU98,R91,D20,R16,D67,R40,U7,R15,U6,R7')
+    assert shortest_intersection(parse_input(io)) == 410
