@@ -27,10 +27,10 @@ jobs:
     - name: Run unit tests
       run: bin/tests
 
-    - name: Run solutions tests
+    - name: Verify solutions
       run: bin/solutions
 
-    - name: Upload coverage report to coveralls
+    - name: Upload coverage report
       run: pipenv run coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
