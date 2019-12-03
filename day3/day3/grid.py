@@ -9,6 +9,7 @@ from itertools import islice
 from enum import Enum
 
 Position = Tuple[int, int]
+Delta = Tuple[int, int]
 
 
 class Direction(Enum):
@@ -17,26 +18,26 @@ class Direction(Enum):
     RIGHT = 'R'
     DOWN = 'D'
 
+    @property
+    def delta(self) -> Delta:
+        return (-1, 0) if self == Direction.LEFT \
+            else (0, -1) if self == Direction.UP \
+            else (1, 0) if self == Direction.RIGHT \
+            else (0, 1) if self == Direction.DOWN \
+            else (0, 0)
+
 
 class Vector(NamedTuple):
     direction: Direction
     distance: int
 
 
-def add_tuples(first: Tuple[int, int], second: Tuple[int, int]) -> Tuple[int, int]:
-    return first[0] + second[0], first[1] + second[1]
+def step(position: Position, delta: Delta) -> Position:
+    return position[0] + delta[0], position[1] + delta[1]
 
 
 def move(start: Position, vector: Vector) -> Iterator[Position]:
-    direction = vector.direction
-
-    step = (-1, 0) if direction == Direction.LEFT \
-        else (0, -1) if direction == Direction.UP \
-        else (1, 0) if direction == Direction.RIGHT \
-        else (0, 1) if direction == Direction.DOWN \
-        else (0, 0)
-
-    result = accumulate(repeat(step, vector.distance), add_tuples, initial=start)  # type: ignore
+    result = accumulate(repeat(vector.direction.delta, vector.distance), step, initial=start)  # type: ignore
     return islice(result, 1, None)
 
 
