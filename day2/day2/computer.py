@@ -19,10 +19,10 @@ class Computer:
     def __init__(self, codes: List[int]):
         self.memory = codes.copy()
 
-    def set_noun(self, noun):
+    def set_noun(self, noun: int):
         self.memory[1] = noun
 
-    def set_verb(self, verb):
+    def set_verb(self, verb: int):
         self.memory[2] = verb
 
     @property
