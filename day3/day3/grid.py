@@ -24,13 +24,13 @@ class Vector(NamedTuple):
     distance: int
 
 
-def step(position: Position, direction: Delta) -> Position:
-    return position[0] + direction[0], position[1] + direction[1]
+def step(position: Position, delta: Delta) -> Position:
+    return position[0] + delta[0], position[1] + delta[1]
 
 
 def move(start: Position, vector: Vector) -> Iterator[Position]:
-    result = accumulate(repeat(vector.direction.value, vector.distance), step, initial=start)  # type: ignore
-    return islice(result, 1, None)
+    steps = accumulate(repeat(vector.direction.value, vector.distance), step, initial=start)  # type: ignore
+    return islice(steps, 1, None)
 
 
 def positions(vectors: Iterator[Vector]) -> List[Position]:

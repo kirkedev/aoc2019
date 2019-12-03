@@ -28,4 +28,4 @@ def closest_intersection(wires: Iterator[Wire]) -> int:
 
 def shortest_intersection(wires: Iterator[Wire]) -> int:
     first, second = map(positions, wires)
-    return min(map(lambda it: first.index(it) + second.index(it), intersections(first, second)))
+    return min(map(lambda position: first.index(position) + second.index(position), intersections(first, second)))
