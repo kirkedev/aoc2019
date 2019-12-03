@@ -5,4 +5,6 @@ day1/bin/tests
 echo
 day2/bin/tests
 echo
+day3/bint/tests
+echo
 pipenv run coverage report
