@@ -1,7 +1,6 @@
 [run]
 branch = True
 
-[paths]
 source =
     day1
     day2
@@ -23,6 +22,3 @@ exclude_lines =
 
     # Don't complain if non-runnable code isn't run:
     if __name__ == .__main__.:
-
-[html]
-directory = coverage
