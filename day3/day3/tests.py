@@ -1,9 +1,13 @@
 from io import StringIO
 from .grid import Direction
 from .grid import Vector
+from .grid import move
+from .grid import positions
+from .grid import intersections
 from . import parse_vector
 from . import parse_wire
 from . import parse_input
+from . import closest_intersection
 
 
 def test_parse_vector():
@@ -24,3 +28,35 @@ def test_parse_input():
     first, second = parse_input(StringIO('U102,L292\nL1010,D906'))
     assert list(first) == [Vector(Direction.UP, 102), Vector(Direction.LEFT, 292)]
     assert list(second) == [Vector(Direction.LEFT, 1010), Vector(Direction.DOWN, 906)]
+
+
+def test_move():
+    assert list(move((0, 0), Vector(Direction.RIGHT, 3))) == [(1, 0), (2, 0), (3, 0)]
+
+
+def test_positions():
+    wire = parse_wire('R8,U5,L5,D3')
+
+    assert positions(wire) == [
+        (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0),
+        (8, -1), (8, -2), (8, -3), (8, -4), (8, -5),
+        (7, -5), (6, -5), (5, -5), (4, -5), (3, -5),
+        (3, -4), (3, -3), (3, -2)
+    ]
+
+
+def test_intersection():
+    io = StringIO('R8,U5,L5,D3\nU7,R6,D4,L4')
+    first, second = parse_input(io)
+    assert list(intersections(first, second)) == [(6, -5), (3, -3)]
+
+
+def test_closest_intersection():
+    io = StringIO('R8,U5,L5,D3\nU7,R6,D4,L4')
+    assert closest_intersection(parse_input(io)) == 6
+
+    io = StringIO('R75,D30,R83,U83,L12,D49,R71,U7,L72\nU62,R66,U55,R34,D71,R55,D58,R83')
+    assert closest_intersection(parse_input(io)) == 159
+
+    io = StringIO('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51\nU98,R91,D20,R16,D67,R40,U7,R15,U6,R7')
+    assert closest_intersection(parse_input(io)) == 135

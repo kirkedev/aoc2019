@@ -2,6 +2,8 @@ from typing import Iterator
 from re import finditer
 from .grid import Direction
 from .grid import Vector
+from .grid import intersections
+from .grid import manhattan_distance
 
 Wire = Iterator[Vector]
 vector = r'([LURD])(\d+)'
@@ -17,3 +19,7 @@ def parse_wire(line: str) -> Wire:
 
 def parse_input(lines: Iterator[str]) -> Iterator[Wire]:
     return map(parse_wire, lines)
+
+
+def closest_intersection(wires: Iterator[Wire]) -> int:
+    return min(map(manhattan_distance, intersections(*wires)))
