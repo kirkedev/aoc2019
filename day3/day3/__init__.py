@@ -7,7 +7,6 @@ from .grid import intersections
 from .grid import manhattan_distance
 
 Wire = Iterator[Vector]
-vector = r'([LURD])(\d+)'
 
 
 def parse_vector(direction: str, distance: str) -> Vector:
@@ -15,7 +14,7 @@ def parse_vector(direction: str, distance: str) -> Vector:
 
 
 def parse_wire(line: str) -> Wire:
-    return map(lambda match: parse_vector(*match.groups()), finditer(vector, line))
+    return map(lambda match: parse_vector(*match.groups()), finditer(r'([LURD])(\d+)', line))
 
 
 def parse_input(lines: Iterator[str]) -> Iterator[Wire]:
