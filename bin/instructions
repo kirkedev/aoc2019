@@ -1,24 +1,27 @@
 #!/usr/bin/env bash
 set -e
-day=$1
 
-if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
-    echo "Enter a day to retrieve instructions."
-    echo "usage: bin/instructions day4"
+if [[ $1 =~ ^day([[:digit:]]{1,2})$ && "${BASH_REMATCH[1]}" -gt 0 && "${BASH_REMATCH[1]}" -le 25 ]]; then
+    day="${BASH_REMATCH[1]}"
+else
+    echo "Enter a day between 1 and 25 to retrieve instructions."
+    echo "usage: bin/instructions day1"
     exit
 fi
 
+instructions=".instructions.day$day.html"
+
 cleanup() {
-    rm -f ".$day-instructions.html"
+    rm -f "$instructions"
 }
 
 trap cleanup EXIT
 
-curl -s --fail "https://adventofcode.com/2019/day/${day: -1}" -H "Cookie: session=$AOC_SESSION_TOKEN" \
+curl -s --fail "https://adventofcode.com/2019/day/$day" -H "Cookie: session=$AOC_SESSION_TOKEN" \
     | sed -n "/<article/,/<\/article>/p" \
-    > ".$day-instructions.html"
+    > "$instructions"
 
 curl -s --fail "http://c.docverter.com/convert" \
     --form from=html \
     --form to=markdown \
-    --form input_files[]=@".$day-instructions.html"
+    --form input_files[]=@"$instructions"

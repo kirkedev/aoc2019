@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
 set -e
-day=$1
 
-if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
-    echo "Enter a day to initialize."
-    echo "usage: bin/init day4"
-    exit
-fi
-
-rollback() {
+finish() {
     if [ $? -eq 0 ]; then
         git add "$day"
         echo "Successfully generated $day solution."
     else
-        rm -rf $day
+        rm -rf "$day"
         echo "Error generating $day solution."
     fi
 }
@@ -27,14 +20,23 @@ create_script() {
     chmod +x "$path"
 }
 
+if [[ $1 =~ ^day([[:digit:]]{1,2})$ && "${BASH_REMATCH[1]}" -gt 0 && "${BASH_REMATCH[1]}" -le 25 ]]; then
+    date="${BASH_REMATCH[1]}"
+else
+    echo "Enter a day between 1 and 25 to initialize."
+    echo "usage: bin/init day1"
+    exit
+fi
+
+day="day$date"
 mkdir "$day"
-trap rollback EXIT
+trap finish EXIT
 
 echo "export PATH=./bin:$PATH" > "$day/.envrc"
 bin/instructions "$day" > "$day/README.md"
 
 if [ -n "$AOC_SESSION_TOKEN" ]; then
-    curl -s "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
+    curl -s "https://adventofcode.com/2019/day/$date/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
 else
     echo "AOC_SESSION_TOKEN not set. Skipping puzzle input."
 fi
