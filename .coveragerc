@@ -5,6 +5,7 @@ source =
     day1
     day2
     day3
+    day4
 
 [report]
 omit =
