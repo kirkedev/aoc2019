@@ -9,7 +9,7 @@ Solutions to [Advent of Code 2019](https://adventofcode.com/2019).
 ### Setup
 You'll need to [install pipenv](https://github.com/pypa/pipenv#installation) to run the code.
 
-If you want to use the `bin/init` and `bin/readme` scripts, you should set the `AOC_SESSION_TOKEN` to the session variable in the [adventofcode.com](adventofcode.com) cookie. This will automatically download your puzzle input and convert your puzzle instructions to markdown.
+If you want to use the `bin/init` and `bin/instructions` scripts, you should set the `AOC_SESSION_TOKEN` to the session variable in the [adventofcode.com](adventofcode.com) cookie. This will automatically download your puzzle input and convert your puzzle instructions to markdown.
 
 Though not required, it's handy to use [direnv](https://direnv.net/) to set your session token and add the scripts in `bin` to your `PATH` so you can run them directly, eg: `tests`.
 
@@ -37,5 +37,5 @@ bin/lint
 bin/init day4
 
 # Convert puzzle instructions for day 4 to markdown and save to README
-bin/readme day4 > day4/README.md
+bin/instructions day4 > day4/README.md
 ```

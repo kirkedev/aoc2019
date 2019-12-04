@@ -30,6 +30,7 @@ create_script() {
 trap rollback EXIT
 
 echo "PATH=./bin:$PATH" > "$day/.envrc"
+bin/instructions "$day" > "$day/README.md"
 
 if [ -n "$AOC_SESSION_TOKEN" ]; then
     curl -s "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
