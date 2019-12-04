@@ -15,3 +15,6 @@ def is_increasing(number: int) -> bool:
 def has_double(number: int) -> bool:
     return any(finditer(r'(\d)\1+', str(number)))
 
+
+def exactly_double(number: int) -> bool:
+    return any(len(match.group(0)) == 2 for match in finditer(r'(\d)\1+', str(number)))

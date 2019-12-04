@@ -17,3 +17,8 @@ def test_has_double():
     assert has_double(111111) is True
     assert has_double(123789) is False
 
+
+def test_exactly_double():
+    assert exactly_double(112233) is True
+    assert exactly_double(123444) is False
+    assert exactly_double(111122) is True
