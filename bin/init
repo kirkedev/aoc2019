@@ -18,10 +18,18 @@ fi
 day=$1
 mkdir "$day"
 echo "PATH=./bin:$PATH" > "$day/.envrc"
-touch "$day/README.md"
+
+curl -s "https://adventofcode.com/2019/day/${day: -1}" | sed -n "/<article/,/<\/article>/p" > "$day-instructions.html"
+
+curl -s "http://c.docverter.com/convert" \
+--form from=html \
+--form to=markdown \
+--form "input_files[]=@$day-instructions.html" > "$day/README.md"
+
+rm -f "$day-instructions.html"
 
 if [ -n "$AOC_SESSION_TOKEN" ]; then
-    curl "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
+    curl -s "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
 else
     echo "AOC_SESSION_TOKEN not set. Skipping puzzle input."
 fi
