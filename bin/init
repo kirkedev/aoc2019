@@ -3,8 +3,9 @@ set -e
 day=$1
 mkdir "$day"
 
-if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
-    echo "Enter a day to initialize. usage: bin/init day4"
+if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
+    echo "Enter a day to initialize."
+    echo "usage: bin/init day4"
     exit
 fi
 
