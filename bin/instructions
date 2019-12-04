@@ -9,16 +9,16 @@ if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
 fi
 
 cleanup() {
-  rm -f "$day-instructions.html"
+    rm -f ".$day-instructions.html"
 }
 
 trap cleanup EXIT
 
 curl -s --fail "https://adventofcode.com/2019/day/${day: -1}" -H "Cookie: session=$AOC_SESSION_TOKEN" \
-| sed -n "/<article/,/<\/article>/p" \
-> "$day-instructions.html"
+    | sed -n "/<article/,/<\/article>/p" \
+    > ".$day-instructions.html"
 
 curl -s --fail "http://c.docverter.com/convert" \
---form from=html \
---form to=markdown \
---form input_files[]=@"$day-instructions.html"
+    --form from=html \
+    --form to=markdown \
+    --form input_files[]=@".$day-instructions.html"

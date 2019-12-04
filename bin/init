@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
 day=$1
-mkdir "$day"
 
 if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
     echo "Enter a day to initialize."
@@ -10,27 +9,28 @@ if [[ ! $1 =~ ^day[1-2]?[0-9]$ ]]; then
 fi
 
 rollback() {
-  if [ $? -eq 0 ]; then
-    git add "$day"
-    echo "Successfully generated $day solution."
-  else
-    rm -rf $day
-    echo "Error generating $day solution."
-  fi
+    if [ $? -eq 0 ]; then
+        git add "$day"
+        echo "Successfully generated $day solution."
+    else
+        rm -rf $day
+        echo "Error generating $day solution."
+    fi
 }
 
 create_script() {
-  path=$1
-  body=$2
+    path=$1
+    body=$2
 
-  echo "#!/usr/bin/env bash" > "$path"
-  echo "$body" >> "$path"
-  chmod +x "$path"
+    echo "#!/usr/bin/env bash" > "$path"
+    echo "$body" >> "$path"
+    chmod +x "$path"
 }
 
+mkdir "$day"
 trap rollback EXIT
 
-echo "PATH=./bin:$PATH" > "$day/.envrc"
+echo "export PATH=./bin:$PATH" > "$day/.envrc"
 bin/instructions "$day" > "$day/README.md"
 
 if [ -n "$AOC_SESSION_TOKEN" ]; then
