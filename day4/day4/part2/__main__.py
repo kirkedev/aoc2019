@@ -1,9 +1,7 @@
-import sys
-from .. import is_increasing
-from .. import exactly_double
+from sys import stdin
 from .. import parse_input
+from .. import is_increasing
+from .. import has_exact_double
 
 
-numbers = parse_input(sys.stdin)
-matches = filter(lambda number: is_increasing(number) and exactly_double(number), numbers)
-print(sum(1 for match in matches))
+print(sum(1 for password in parse_input(stdin) if is_increasing(password) and has_exact_double(password)))
