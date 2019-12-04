@@ -9,6 +9,18 @@ Solutions to [Advent of Code 2019](https://adventofcode.com/2019).
 ### Setup
 You'll need to [install pipenv](https://github.com/pypa/pipenv#installation) to run the code.
 
+Though not required, it's handy to use [direnv](https://direnv.net/) to add the scripts in `bin` to your `PATH`, so you can run them directly, eg: `tests`.
+
+To do so, add an `.envrc` file to the project root:
+
+```bash
+PATH=./bin:$PATH
+AOC_SESSION_TOKEN="get your session token from the adventofcode.com cookie"
+```
+
+The `bin/init` script will automatically create an `.envrc` within each puzzle solution.
+
+
 ### Commands
 ```bash
 # Run and verify all solutions
@@ -21,5 +33,6 @@ bin/tests
 bin/lint
 
 # Initialize a puzzle for day 4
+# You must set AOC_SESSION_TOKEN to download the puzzle input.
 bin/init day4
 ```
