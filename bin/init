@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 set -e
+day=$1
+
+rollback() {
+  if [ $? -eq 0 ]; then
+    git add "$day"
+    echo "Successfully generated $day solution."
+  else
+    rm -rf $day
+    echo "Error generating $day solution."
+  fi
+}
 
 create_script() {
   path=$1
@@ -15,16 +26,20 @@ if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
     exit
 fi
 
-day=$1
 mkdir "$day"
+trap rollback EXIT
+
 echo "PATH=./bin:$PATH" > "$day/.envrc"
 
-curl -s "https://adventofcode.com/2019/day/${day: -1}" | sed -n "/<article/,/<\/article>/p" > "$day-instructions.html"
+curl -s "https://adventofcode.com/2019/day/${day: -1}" \
+| sed -n "/<article/,/<\/article>/p" \
+> "$day-instructions.html"
 
 curl -s "http://c.docverter.com/convert" \
 --form from=html \
 --form to=markdown \
---form "input_files[]=@$day-instructions.html" > "$day/README.md"
+--form "input_files[]=@$day-instructions.html" \
+> "$day/README.md"
 
 rm -f "$day-instructions.html"
 
@@ -50,5 +65,3 @@ mkdir "$bin"
 create_script "$bin/part1" "pipenv run python3 -m $day.part1"
 create_script "$bin/part2" "pipenv run python3 -m $day.part1"
 create_script "$bin/tests" "pipenv run nosetests $day --with-coverage --cover-branches --cover-package=$day"
-
-git add "$day"
