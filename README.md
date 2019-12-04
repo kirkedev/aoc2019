@@ -19,4 +19,7 @@ bin/tests
 
 # Lint project code
 bin/lint
+
+# Initialize a puzzle for day 4
+bin/init day4
 ```

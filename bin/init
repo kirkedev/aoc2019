@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
+    echo "Enter a day to initialize. usage: bin/init day4"
+    exit
+fi
+
+day="$1"
+mkdir "$day"
+echo "PATH=./bin:$PATH" > $day/.envrc
+
+mkdir "$day/$day"
+touch "$day/$day/__init__.py"
+touch "$day/$day/tests.py"
+
+mkdir "$day/$day/part1"
+touch "$day/$day/part1/__main__.py"
+
+mkdir "$day/$day/part2"
+touch "$day/$day/part2/__main__.py"
+
+mkdir "$day/bin"
+
+echo "#!/usr/bin/env bash" > "$day/bin/part1"
+echo "pipenv run python3 -m $day.part1" >> "$day/bin/part1"
+chmod +x "$day/bin/part1"
+
+echo "#!/usr/bin/env bash" > "$day/bin/part2"
+echo "pipenv run python3 -m $day.part2" >> "$day/bin/part2"
+chmod +x "$day/bin/part2"
+
+echo "#!/usr/bin/env bash" > "$day/bin/tests"
+echo "pipenv run nosetests $day --with-coverage --cover-branches --cover-package=$day" >> "$day/bin/tests"
+chmod +x "$day/bin/tests"
+
+touch "$day/README.md"
+
+if [ ! -z "$AOC_SESSION_TOKEN" ]; then
+    curl "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
+else
+    echo "AOC_SESSION_TOKEN not set. Skipping downloading puzzle input."
+fi
+
+git add "$day"
