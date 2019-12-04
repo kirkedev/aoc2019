@@ -35,4 +35,7 @@ bin/lint
 # Initialize a puzzle for day 4
 # You must set AOC_SESSION_TOKEN to download the puzzle input.
 bin/init day4
+
+# Convert puzzle instructions for day 4 to markdown and save to README
+bin/readme day4 > day4/README.md
 ```

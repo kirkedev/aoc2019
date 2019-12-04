@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+day=$1
+
+cleanup() {
+  rm -f "$day-instructions.html"
+}
+
+trap cleanup EXIT
+
+curl -s --fail "https://adventofcode.com/2019/day/${day: -1}" -H "Cookie: session=$AOC_SESSION_TOKEN"\
+| sed -n "/<article/,/<\/article>/p" \
+> "$day-instructions.html"
+
+curl -s --fail "http://c.docverter.com/convert" \
+--form from=html \
+--form to=markdown \
+--form "input_files[]=@$day-instructions.html" \

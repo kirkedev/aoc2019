@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -e
 day=$1
+mkdir "$day"
+
+if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
+    echo "Enter a day to initialize. usage: bin/init day4"
+    exit
+fi
 
 rollback() {
   if [ $? -eq 0 ]; then
@@ -21,27 +27,9 @@ create_script() {
   chmod +x "$path"
 }
 
-if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
-    echo "Enter a day to initialize. usage: bin/init day4"
-    exit
-fi
-
-mkdir "$day"
 trap rollback EXIT
 
 echo "PATH=./bin:$PATH" > "$day/.envrc"
-
-curl -s --fail "https://adventofcode.com/2019/day/${day: -1}" \
-| sed -n "/<article/,/<\/article>/p" \
-> "$day-instructions.html"
-
-curl -s --fail "http://c.docverter.com/convert" \
---form from=html \
---form to=markdown \
---form "input_files[]=@$day-instructions.html" \
-> "$day/README.md"
-
-rm -f "$day-instructions.html"
 
 if [ -n "$AOC_SESSION_TOKEN" ]; then
     curl -s "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
