@@ -9,7 +9,7 @@ Solutions to [Advent of Code 2019](https://adventofcode.com/2019).
 ### Setup
 You'll need to [install pipenv](https://github.com/pypa/pipenv#installation) to run the code.
 
-If you want to use the [bin/init](bin/init) and [bin/instructions](bin/instructions) scripts, you should set the `AOC_SESSION_TOKEN` to the session variable in your [adventofcode.com](https://adventofcode.com) cookie.
+If you want to use the [init](bin/init) and [instructions](bin/instructions) scripts, you should set the `AOC_SESSION_TOKEN` environment variable to the session token in your [adventofcode.com](https://adventofcode.com) cookie.
 
 Though not required, it's handy to use [direnv](https://direnv.net/) to set your session token and add the scripts in `bin` to your `PATH` so you can run them directly, eg: `tests`.
 
@@ -33,9 +33,9 @@ bin/tests
 # Lint project code
 bin/lint
 
-# Initialize solution for day 4
-bin/init day4
+# Initialize solution for first day
+bin/init day1
 
-# Convert instructions for day 4 to markdown and save to README
-bin/instructions day4 > day4/README.md
+# Convert instructions for first day to markdown and save to README
+bin/instructions day1 > day1/README.md
 ```
