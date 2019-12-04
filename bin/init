@@ -1,45 +1,46 @@
 #!/usr/bin/env bash
 set -e
 
+create_script() {
+  path=$1
+  body=$2
+
+  echo "#!/usr/bin/env bash" > "$path"
+  echo "$body" >> "$path"
+  chmod +x "$path"
+}
+
 if [[ ! $1 =~ ^day[0-2]?[0-9]$ ]]; then
     echo "Enter a day to initialize. usage: bin/init day4"
     exit
 fi
 
-day="$1"
+day=$1
 mkdir "$day"
-echo "PATH=./bin:$PATH" > $day/.envrc
-
-mkdir "$day/$day"
-touch "$day/$day/__init__.py"
-touch "$day/$day/tests.py"
-
-mkdir "$day/$day/part1"
-touch "$day/$day/part1/__main__.py"
-
-mkdir "$day/$day/part2"
-touch "$day/$day/part2/__main__.py"
-
-mkdir "$day/bin"
-
-echo "#!/usr/bin/env bash" > "$day/bin/part1"
-echo "pipenv run python3 -m $day.part1" >> "$day/bin/part1"
-chmod +x "$day/bin/part1"
-
-echo "#!/usr/bin/env bash" > "$day/bin/part2"
-echo "pipenv run python3 -m $day.part2" >> "$day/bin/part2"
-chmod +x "$day/bin/part2"
-
-echo "#!/usr/bin/env bash" > "$day/bin/tests"
-echo "pipenv run nosetests $day --with-coverage --cover-branches --cover-package=$day" >> "$day/bin/tests"
-chmod +x "$day/bin/tests"
-
+echo "PATH=./bin:$PATH" > "$day/.envrc"
 touch "$day/README.md"
 
-if [ ! -z "$AOC_SESSION_TOKEN" ]; then
+if [ -n "$AOC_SESSION_TOKEN" ]; then
     curl "https://adventofcode.com/2019/day/${day: -1}/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"
 else
-    echo "AOC_SESSION_TOKEN not set. Skipping downloading puzzle input."
+    echo "AOC_SESSION_TOKEN not set. Skipping puzzle input."
 fi
+
+src=$day/$day
+mkdir "$src"
+touch "$src/__init__.py"
+touch "$src/tests.py"
+
+mkdir "$src/part1"
+touch "$src/part1/__main__.py"
+
+mkdir "$src/part2"
+touch "$src/part2/__main__.py"
+
+bin=$day/bin
+mkdir "$bin"
+create_script "$bin/part1" "pipenv run python3 -m $day.part1"
+create_script "$bin/part2" "pipenv run python3 -m $day.part1"
+create_script "$bin/tests" "pipenv run nosetests $day --with-coverage --cover-branches --cover-package=$day"
 
 git add "$day"
