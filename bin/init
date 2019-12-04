@@ -53,5 +53,5 @@ touch "$src/part2/__main__.py"
 bin=$day/bin
 mkdir "$bin"
 create_script "$bin/part1" "pipenv run python3 -m $day.part1"
-create_script "$bin/part2" "pipenv run python3 -m $day.part1"
+create_script "$bin/part2" "pipenv run python3 -m $day.part2"
 create_script "$bin/tests" "pipenv run nosetests $day --with-coverage --cover-branches --cover-package=$day"

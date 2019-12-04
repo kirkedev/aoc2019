@@ -21,4 +21,4 @@ curl -s --fail "https://adventofcode.com/2019/day/${day: -1}" -H "Cookie: sessio
 curl -s --fail "http://c.docverter.com/convert" \
 --form from=html \
 --form to=markdown \
---form "input_files[]=@$day-instructions.html"
+--form input_files[]=@"$day-instructions.html"
