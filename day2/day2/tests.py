@@ -1,8 +1,8 @@
 from io import StringIO
 from . import parse_input
 from . import calculate
-from .instruction import Operation
-from .computer import Computer
+from aoc2019.instruction import Operation
+from aoc2019.computer import Computer
 
 
 def test_parse_input():

@@ -19,7 +19,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install pipenv
-        pipenv install --dev --system
+        pipenv install --dev
 
     - name: Lint code
       run: bin/lint
@@ -31,6 +31,6 @@ jobs:
       run: bin/solutions
 
     - name: Upload coverage report
-      run: coveralls
+      run: pipenv run coveralls
       env:
         COVERALLS_REPO_TOKEN:  ${{ secrets.COVERALLS_REPO_TOKEN }}

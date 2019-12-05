@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a37fc6cfd2d002a4020b8dbf41bf965db5c0d05e14231c82c19a34c228e88b52"
+            "sha256": "9a178b605545ed8fb0321e292b833ed53eeb97085e5062751cca0526d108d714"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,12 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "lib": {
+            "editable": true,
+            "path": "./lib"
+        }
+    },
     "develop": {
         "certifi": {
             "hashes": [

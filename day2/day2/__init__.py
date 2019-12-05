@@ -1,6 +1,6 @@
 from typing import List
 from re import finditer
-from .computer import Computer
+from aoc2019.computer import Computer
 
 
 def parse_input(line: str) -> List[int]:

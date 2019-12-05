@@ -4,3 +4,5 @@
 !.coveragerc
 !.github
 !.githooks
+
+*.egg-info
