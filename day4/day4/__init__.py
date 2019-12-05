@@ -1,7 +1,6 @@
 from typing import Iterable
 from typing import TextIO
-from re import finditer
-from re import search
+from collections import Counter
 
 
 def parse_input(io: TextIO) -> Iterable[str]:
@@ -14,8 +13,8 @@ def is_increasing(password: str) -> bool:
 
 
 def has_double(password: str) -> bool:
-    return search(r'(\d)\1', password) is not None
+    return any(count >= 2 for _, count in Counter(password).most_common())
 
 
 def has_exact_double(password: str) -> bool:
-    return any(len(match.group(0)) == 2 for match in finditer(r'(\d)\1+', password))
+    return any(count == 2 for _, count in Counter(password).most_common())
