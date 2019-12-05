@@ -14,7 +14,7 @@ def parse_vector(direction: str, distance: str) -> Vector:
 
 
 def parse_wire(line: str) -> Wire:
-    return map(lambda match: parse_vector(*match.groups()), finditer(r'([LURD])(\d+)', line))
+    return (parse_vector(*match.groups()) for match in finditer(r'([LURD])(\d+)', line))
 
 
 def parse_input(lines: Iterator[str]) -> Iterator[Wire]:
@@ -28,4 +28,4 @@ def closest_intersection(wires: Iterator[Wire]) -> int:
 
 def shortest_intersection(wires: Iterator[Wire]) -> int:
     first, second = map(positions, wires)
-    return min(map(lambda position: first.index(position) + second.index(position), intersections(first, second)))
+    return min(first.index(position) + second.index(position) for position in intersections(first, second))
