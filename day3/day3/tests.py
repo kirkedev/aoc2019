@@ -32,7 +32,7 @@ def test_parse_input():
 
 
 def test_move():
-    assert list(move((0, 0), Vector(Direction.RIGHT, 3))) == [(1, 0), (2, 0), (3, 0)]
+    assert list(move((0, 0), Direction.RIGHT, 3)) == [(1, 0), (2, 0), (3, 0)]
 
 
 def test_positions():
