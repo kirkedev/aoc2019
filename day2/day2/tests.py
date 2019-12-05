@@ -40,14 +40,6 @@ def test_parse_instructions():
     assert second.address == 3
 
 
-def test_execute_program():
-    io = StringIO("1,9,10,3,2,3,11,0,99,30,40,50\n")
-    codes = parse_input(next(io))
-    computer = Computer(codes)
-    computer.execute_program()
-    assert computer.memory == [3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50]
-
-
 def test_calculate():
     io = StringIO("1,2,2,4,99,5,6,0,99\n")
     line = next(io)
