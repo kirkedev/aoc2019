@@ -47,9 +47,11 @@ touch "$src/__init__.py"
 touch "$src/tests.py"
 
 mkdir "$src/part1"
+touch "$src/part1/__init__.py"
 touch "$src/part1/__main__.py"
 
 mkdir "$src/part2"
+touch "$src/part2/__init__.py"
 touch "$src/part2/__main__.py"
 
 bin=$day/bin
