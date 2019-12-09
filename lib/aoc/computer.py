@@ -1,3 +1,4 @@
+from typing import Tuple
 from typing import List
 from typing import Optional
 from .instruction import OpCode
@@ -21,24 +22,33 @@ class Computer:
     def result(self) -> int:
         return self.memory[0]
 
+    def get_value(self, mode: Mode, param: int) -> int:
+        return param if mode == Mode.IMMEDIATE else self.memory[param]
+
+    def get_values(self, modes: int, first: int, second: int) -> Tuple[int, int]:
+        return self.get_value(Mode(modes % 10), first), self.get_value(Mode(modes // 10), second)
+
     def add(self, modes: int, first: int, second: int, address: int) -> None:
-        memory = self.memory
-        first_value = first if modes % 10 == Mode.IMMEDIATE else memory[first]
-        second_value = second if modes // 10 == Mode.IMMEDIATE else memory[second]
-        memory[address] = first_value + second_value
+        first_value, second_value = self.get_values(modes, first, second)
+        self.memory[address] = first_value + second_value
 
     def multiply(self, modes: int, first: int, second: int, address: int) -> None:
-        memory = self.memory
-        first_value = first if modes % 10 == Mode.IMMEDIATE else memory[first]
-        second_value = second if modes // 10 == Mode.IMMEDIATE else memory[second]
-        memory[address] = first_value * second_value
+        first_value, second_value = self.get_values(modes, first, second)
+        self.memory[address] = first_value * second_value
 
-    def output(self, modes: int, param: int) -> None:
-        value = param if modes % 10 == Mode.IMMEDIATE else self.memory[param]
-        print(value)
+    def less_than(self, modes: int, first: int, second: int, address: int) -> None:
+        first_value, second_value = self.get_values(modes, first, second)
+        self.memory[address] = 1 if first_value < second_value else 0
+
+    def equals(self, modes: int, first: int, second: int, address: int) -> None:
+        first_value, second_value = self.get_values(modes, first, second)
+        self.memory[address] = 1 if first_value == second_value else 0
 
     def input(self, address: int) -> None:
         self.memory[address] = int(input(""))
+
+    def output(self, mode: int, param: int) -> None:
+        print(self.get_value(Mode(mode % 10), param))
 
     def execute_program(self) -> int:
         for instructions in parse_instructions(self.memory):
@@ -52,6 +62,12 @@ class Computer:
 
             elif operation == OpCode.MULTIPLY:
                 self.multiply(modes, *params)
+
+            elif operation == OpCode.LESS_THAN:
+                self.less_than(modes, *params)
+
+            elif operation == OpCode.EQUALS:
+                self.equals(modes, *params)
 
             elif operation == OpCode.OUTPUT:
                 self.output(modes, *params)

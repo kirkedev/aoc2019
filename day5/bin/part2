@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pipenv run python3 -m day5.part2
+pipenv run python3 -m day5
