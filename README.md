@@ -2,7 +2,7 @@ Advent of Code 2019
 ---
 [![Build Status](https://github.com/gumballhead/aoc2019/workflows/build/badge.svg)](https://github.com/gumballhead/aoc2019/actions)
 [![Coverage Status](https://coveralls.io/repos/github/gumballhead/aoc2019/badge.svg?branch=master)](https://coveralls.io/github/gumballhead/aoc2019?branch=master)
-[![Python Version](https://img.shields.io/github/pipenv/locked/python-version/gumballhead/aoc2019)](https://www.python.org/)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 
 Solutions to [Advent of Code 2019](https://adventofcode.com/2019).
 
