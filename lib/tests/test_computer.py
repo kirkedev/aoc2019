@@ -1,11 +1,9 @@
-from aoc2019.computer import Computer
+from aoc.computer import Computer
 
 
 def test_set_noun_and_verb():
     codes = [1, 9, 10]
-    computer = Computer(codes)
-    computer.set_noun(12)
-    computer.set_verb(2)
+    computer = Computer(codes, 12, 2)
     assert computer.memory == [1, 12, 2]
 
 

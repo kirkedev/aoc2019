@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 pipenv run flake8
-pipenv run mypy lib/aoc2019 day1 day2 day3 day4 --strict
+pipenv run mypy lib/aoc day1 day2 day3 day4 --strict

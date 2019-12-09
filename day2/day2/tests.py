@@ -1,46 +1,8 @@
 from io import StringIO
-from . import parse_input
+from aoc.instruction import parse_input
 from . import calculate
-from aoc2019.instruction import Operation
-from aoc2019.computer import Computer
-
-
-def test_parse_input():
-    io = StringIO("1,0,0,3,1\n")
-    line = next(io)
-    assert list(parse_input(line)) == [1, 0, 0, 3, 1]
-
-
-def test_parse_instruction():
-    io = StringIO("2,4,4,5,99,0\n")
-    codes = parse_input(next(io))
-    computer = Computer(codes)
-    instruction = next(computer.instructions)
-
-    assert instruction.operation == Operation.MULTIPLY
-    assert instruction.first == 99
-    assert instruction.second == 99
-    assert instruction.address == 5
-
-
-def test_parse_instructions():
-    io = StringIO("1,0,0,0,2,3,0,3,99\n")
-    codes = parse_input(next(io))
-    computer = Computer(codes)
-    first, second = computer.instructions
-
-    assert first.operation == Operation.ADD
-    assert first.first == 1
-    assert first.second == 1
-    assert first.address == 0
-
-    assert second.operation == Operation.MULTIPLY
-    assert second.first == 0
-    assert second.second == 1
-    assert second.address == 3
 
 
 def test_calculate():
     io = StringIO("1,2,2,4,99,5,6,0,99\n")
-    line = next(io)
-    assert calculate(parse_input(line), 1, 1) == 30
+    assert calculate(parse_input(io), 1, 1) == 30

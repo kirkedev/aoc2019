@@ -1,15 +1,6 @@
 from typing import List
-from re import finditer
-from aoc2019.computer import Computer
-
-
-def parse_input(line: str) -> List[int]:
-    return list(map(lambda match: int(match[0]), finditer("\\d+", line)))
+from aoc.computer import Computer
 
 
 def calculate(codes: List[int], noun: int, verb: int) -> int:
-    model = Computer(codes)
-    model.set_noun(noun)
-    model.set_verb(verb)
-    model.execute_program()
-    return model.result
+    return Computer(codes, noun=noun, verb=verb).execute_program()

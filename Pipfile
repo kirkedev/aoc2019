@@ -15,4 +15,3 @@ mypy = "*"
 
 [packages]
 lib = {editable = true,path = "./lib"}
-

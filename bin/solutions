@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
-error=0
+declare -i error
+
+assert_eq() {
+    actual=$1
+    expected=$2
+    echo "$actual"
+
+    if [[ $actual -eq $expected ]]; then
+        echo "OK"
+    else
+        echo "ERROR: expected $expected"
+        error+=1
+    fi
+}
 
 test_solution() {
     day=$1
@@ -8,16 +21,20 @@ test_solution() {
 
     echo
     echo "Running $day $part..."
+    output=$(cd "$day" && "bin/$part" < input)
+    assert_eq "$output" "$expected"
+}
 
-    output=$(cd $day && bin/$part < input)
-    echo $output
+test_computer() {
+    day=$1
+    part=$2
+    args=$3
+    expected=$4
 
-    if [ $output -eq $expected ]; then 
-        echo "OK"
-    else
-        echo "ERROR: expected $expected"
-        error+=1
-    fi
+    echo
+    echo "Running $day $part..."
+    output=$(cd "$day" && (cat input && echo "$args";) | "bin/$part" | tail -n 1)
+    assert_eq "$output" "$expected"
 }
 
 test_solution "day1" "part1" 3346639
@@ -28,5 +45,6 @@ test_solution "day3" "part1" 293
 test_solution "day3" "part2" 27306
 test_solution "day4" "part1" 1048
 test_solution "day4" "part2" 677
+test_computer "day5" "part1" 1 12440243
 
 exit $error
