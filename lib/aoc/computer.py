@@ -50,7 +50,7 @@ class Computer:
     def output(self, mode: int, param: int) -> None:
         print(self.get_value(Mode(mode % 10), param))
 
-    def execute_program(self) -> int:
+    def run(self) -> int:
         for instructions in parse_instructions(self.memory):
             code = instructions[0]
             operation = code % 100
