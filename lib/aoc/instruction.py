@@ -29,6 +29,7 @@ def parse_instructions(memory: List[int]) -> Iterator[Tuple[int, ...]]:
     while True:
         code = memory[start]
         operation = code % 100
+        mode = code // 100
 
         if code == OpCode.EXIT:
             break
@@ -41,15 +42,17 @@ def parse_instructions(memory: List[int]) -> Iterator[Tuple[int, ...]]:
         end = start + length
         params = tuple(memory[start:end])
 
-        if code == OpCode.JUMP_IF_TRUE:
+        if operation == OpCode.JUMP_IF_TRUE:
             _, value, address = params
-            value = value if code % 10 == Mode.IMMEDIATE else memory[value]
+            value = value if mode % 10 == Mode.IMMEDIATE else memory[value]
+            address = address if mode // 10 == Mode.IMMEDIATE else memory[address]
             start = address if value != 0 else end
             continue
 
-        if code == OpCode.JUMP_IF_FALSE:
+        if operation == OpCode.JUMP_IF_FALSE:
             _, value, address = params
-            value = value if code % 10 == Mode.IMMEDIATE else memory[value]
+            value = value if mode % 10 == Mode.IMMEDIATE else memory[value]
+            address = address if mode // 10 == Mode.IMMEDIATE else memory[address]
             start = address if value == 0 else end
             continue
 

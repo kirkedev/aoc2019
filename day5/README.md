@@ -182,3 +182,8 @@ ship's thermal radiator controller. This diagnostic test suite only
 outputs one number, the *diagnostic code*.
 
 *What is the diagnostic code for system ID `5`?*
+```bash
+bin/part2 < input
+```
+
+Your puzzle answer was `15486302`.
