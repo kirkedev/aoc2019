@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 set -e
 pipenv run coverage erase
-lib/bin/tests
-echo
-day1/bin/tests
-echo
-day2/bin/tests
-echo
-day3/bin/tests
-echo
-day4/bin/tests
-echo
+pipenv run coverage run -m pytest -v
 pipenv run coverage report

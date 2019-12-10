@@ -7,11 +7,11 @@ verify_ssl = true
 python_version = "3.8"
 
 [dev-packages]
-nose = "*"
-coverage = "*"
-coveralls = "*"
 flake8 = "*"
 mypy = "*"
+pytest = "*"
+coverage = "*"
+coveralls = "*"
 
 [packages]
 lib = {editable = true,path = "./lib"}

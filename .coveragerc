@@ -2,6 +2,7 @@
 branch = True
 
 source =
+    aoc
     day1
     day2
     day3
@@ -11,7 +12,6 @@ source =
 omit =
     */__main__.py
     */typing.py
-    */test/*
     */test*.py
 
 exclude_lines =
