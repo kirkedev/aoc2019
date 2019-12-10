@@ -18,9 +18,8 @@ def test_set_noun_and_verb():
 
 def test_execute_program():
     computer = Computer([1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50])
-    computer.run()
+    assert computer.run() == 3500
     assert computer.memory == [3500, 9, 10, 70, 2, 3, 11, 0, 99, 30, 40, 50]
-    assert computer.result == 3500
 
 
 def test_position_mode_equals_8(monkeypatch, capsys):
@@ -93,3 +92,23 @@ def test_jump_immediate_mode(monkeypatch, capsys):
     set_input(monkeypatch, '8')
     Computer(codes).run()
     assert int(get_output(capsys)) == 1
+
+
+def test_computer_end_to_end(monkeypatch, capsys):
+    codes = [
+        3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31,
+        1106, 0, 36, 98, 0, 0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104,
+        999, 1105, 1, 46, 1101, 1000, 1, 20, 4, 20, 1105, 1, 46, 98, 99
+    ]
+
+    set_input(monkeypatch, '7')
+    Computer(codes).run()
+    assert int(get_output(capsys)) == 999
+
+    set_input(monkeypatch, '8')
+    Computer(codes).run()
+    assert int(get_output(capsys)) == 1000
+
+    set_input(monkeypatch, '9')
+    Computer(codes).run()
+    assert int(get_output(capsys)) == 1001

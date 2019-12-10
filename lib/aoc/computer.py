@@ -47,8 +47,9 @@ class Computer:
     def input(self, address: int) -> None:
         self.memory[address] = int(input(""))
 
-    def output(self, address: int) -> None:
-        print(self.memory[address])
+    def output(self, mode: int, address: int) -> None:
+        value = self.get_value(Mode(mode), address)
+        print(value)
 
     def run(self) -> int:
         for instructions in parse_instructions(self.memory):
@@ -70,7 +71,7 @@ class Computer:
                 self.equals(modes, *params)
 
             elif operation == OpCode.OUTPUT:
-                self.output(*params)
+                self.output(modes, *params)
 
             elif operation == OpCode.INPUT:
                 self.input(*params)
