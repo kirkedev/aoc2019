@@ -102,7 +102,7 @@ After providing `1` to the only input instruction and passing all the
 tests, *what diagnostic code does the program produce?*
 
 ```bash
-bin/part1 < input <<< 1
+bin/part1 < input
 ```
 
 Your puzzle answer was `12440243`.

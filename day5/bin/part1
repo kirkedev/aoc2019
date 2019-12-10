@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pipenv run python3 -m day5
+(cat /dev/stdin && echo "1";) | pipenv run python3 -m day5
