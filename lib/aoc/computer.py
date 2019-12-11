@@ -2,8 +2,9 @@ from typing import Tuple
 from typing import List
 from typing import Optional
 from .instruction import OpCode
-from .instruction import Mode
+from .instruction import Position
 from .instruction import parse_instructions
+from .instruction import is_immediate_mode
 
 
 class Computer:
@@ -22,11 +23,11 @@ class Computer:
     def result(self) -> int:
         return self.memory[0]
 
-    def get_value(self, mode: Mode, param: int) -> int:
-        return param if mode == Mode.IMMEDIATE else self.memory[param]
+    def get_value(self, modes: int, param: int, position: Position) -> int:
+        return param if is_immediate_mode(modes, position) else self.memory[param]
 
     def get_values(self, modes: int, first: int, second: int) -> Tuple[int, int]:
-        return self.get_value(Mode(modes % 10), first), self.get_value(Mode(modes // 10), second)
+        return self.get_value(modes, first, 1), self.get_value(modes, second, 2)
 
     def add(self, modes: int, first: int, second: int, address: int) -> None:
         first_value, second_value = self.get_values(modes, first, second)
@@ -47,16 +48,13 @@ class Computer:
     def input(self, address: int) -> None:
         self.memory[address] = int(input(""))
 
-    def output(self, mode: int, address: int) -> None:
-        value = self.get_value(Mode(mode), address)
+    def output(self, modes: int, address: int) -> None:
+        value = self.get_value(modes, address, 1)
         print(value)
 
-    def run(self) -> int:
-        for instructions in parse_instructions(self.memory):
-            code = instructions[0]
-            operation = code % 100
-            modes = code // 100
-            params = instructions[1:]
+    def run(self, offset: int = 0) -> int:
+        for instructions in parse_instructions(self.memory, offset):
+            operation, modes, *params = instructions
 
             if operation == OpCode.ADD:
                 self.add(modes, *params)
@@ -75,5 +73,15 @@ class Computer:
 
             elif operation == OpCode.INPUT:
                 self.input(*params)
+
+            elif operation == OpCode.JUMP_IF_TRUE:
+                value, offset = self.get_values(modes, *params)
+                if value != 0:
+                    return self.run(offset)
+
+            elif operation == OpCode.JUMP_IF_FALSE:
+                value, offset = self.get_values(modes, *params)
+                if value == 0:
+                    return self.run(offset)
 
         return self.result

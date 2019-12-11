@@ -1,3 +1,4 @@
+from typing import Literal
 from typing import Tuple
 from typing import Iterator
 from typing import List
@@ -18,20 +19,25 @@ class OpCode(IntEnum):
     EXIT = 99
 
 
-class Mode(IntEnum):
-    POSITION = 0
-    IMMEDIATE = 1
+Instruction = Tuple[int, ...]
+Position = Literal[1, 2]
 
 
-def parse_instructions(memory: List[int]) -> Iterator[Tuple[int, ...]]:
-    start = 0
+def split_code(code: int) -> Tuple[OpCode, int]:
+    operation = code % 100
+    modes = code // 100
+    return OpCode(operation), int(str(modes), 2)
 
+
+def is_immediate_mode(mask: int, position: Position) -> bool:
+    return mask & position == position
+
+
+def parse_instructions(memory: List[int], offset: int = 0) -> Iterator[Instruction]:
     while True:
-        code = memory[start]
-        operation = code % 100
-        mode = code // 100
+        operation, modes = split_code(memory[offset])
 
-        if code == OpCode.EXIT:
+        if operation == OpCode.EXIT:
             break
 
         length = 4 if operation in (OpCode.ADD, OpCode.MULTIPLY, OpCode.LESS_THAN, OpCode.EQUALS) \
@@ -39,26 +45,11 @@ def parse_instructions(memory: List[int]) -> Iterator[Tuple[int, ...]]:
             else 2 if operation in (OpCode.INPUT, OpCode.OUTPUT) \
             else 1
 
-        end = start + length
-        params = tuple(memory[start:end])
-
-        if operation == OpCode.JUMP_IF_TRUE:
-            _, value, address = params
-            value = value if mode % 10 == Mode.IMMEDIATE else memory[value]
-            address = address if mode // 10 == Mode.IMMEDIATE else memory[address]
-            start = address if value != 0 else end
-            continue
-
-        if operation == OpCode.JUMP_IF_FALSE:
-            _, value, address = params
-            value = value if mode % 10 == Mode.IMMEDIATE else memory[value]
-            address = address if mode // 10 == Mode.IMMEDIATE else memory[address]
-            start = address if value == 0 else end
-            continue
-
-        yield params
-        start = end
+        end = offset + length
+        params = memory[offset + 1:end]
+        yield operation, modes, *params
+        offset = end
 
 
 def parse_input(io: TextIO) -> List[int]:
-    return list(map(lambda match: int(match[0]), finditer(r'-?\d+', next(io))))
+    return list(int(match[0]) for match in finditer(r'-?\d+', next(io)))
