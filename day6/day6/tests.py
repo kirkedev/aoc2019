@@ -35,18 +35,17 @@ def test_parse_input():
     io = StringIO('COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\n')
     system = parse_input(io)
 
-    assert system['COM'] == ['B']
-    assert system['B'] == ['C', 'G']
-    assert system['C'] == ['D']
-    assert system['D'] == ['E', 'I']
-    assert system['E'] == ['F', 'J']
-    assert system['G'] == ['H']
-    assert system['J'] == ['K']
-    assert system['K'] == ['L']
-
-    assert system.get('F') is None
-    assert system.get('H') is None
-    assert system.get('I') is None
-    assert system.get('L') is None
+    assert orbits(system, 'COM') == 11
+    assert orbits(system, 'B') == 10
+    assert orbits(system, 'C') == 7
+    assert orbits(system, 'D') == 6
+    assert orbits(system, 'E') == 4
+    assert orbits(system, 'F') == 0
+    assert orbits(system, 'G') == 1
+    assert orbits(system, 'H') == 0
+    assert orbits(system, 'I') == 0
+    assert orbits(system, 'J') == 2
+    assert orbits(system, 'K') == 1
+    assert orbits(system, 'L') == 0
 
     assert total_orbits(system) == 42
