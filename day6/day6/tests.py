@@ -1,6 +1,7 @@
 from io import StringIO
 from . import orbits
 from . import total_orbits
+from . import parse_orbit
 from . import parse_input
 
 
@@ -12,7 +13,7 @@ def test_orbits_single():
         'D': []
     }
 
-    assert orbits(system) == 3
+    assert orbits(system, 'COM') == 3
     assert total_orbits(system) == 6
 
 
@@ -29,6 +30,12 @@ def test_orbits_multiple():
     assert orbits(system, 'COM') == 5
     assert orbits(system, 'B') == 4
     assert total_orbits(system) == 11
+
+
+def test_parse_orbit():
+    body, satellite = parse_orbit('COM)B')
+    assert body == 'COM'
+    assert satellite == 'B'
 
 
 def test_parse_input():

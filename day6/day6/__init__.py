@@ -1,6 +1,8 @@
+from typing import Tuple
 from typing import List
 from typing import Dict
 from typing import TextIO
+from collections import defaultdict
 
 System = Dict[str, List[str]]
 
@@ -14,15 +16,15 @@ def total_orbits(system: System) -> int:
     return sum(orbits(system, name) for name in system.keys())
 
 
+def parse_orbit(line: str) -> Tuple[str, str]:
+    body, satellite = line.replace('\n', '').split(')')
+    return body, satellite
+
+
 def parse_input(io: TextIO) -> System:
-    system = {'COM': []}
+    system = defaultdict(lambda: [])
 
-    for line in io:
-        body, satellite = line.replace('\n', '').split(')')
-
-        if body not in system:
-            system[body] = []
-
+    for body, satellite in map(parse_orbit, io):
         system[body] += satellite
 
     return system
