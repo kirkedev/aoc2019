@@ -33,7 +33,6 @@ mkdir "$day"
 trap finish EXIT
 
 echo "export PATH=./bin:$PATH" > "$day/.envrc"
-bin/instructions "$day" > "$day/README.md"
 
 if [[ -n $AOC_SESSION_TOKEN ]]; then
     curl -s "https://adventofcode.com/2019/day/$date/input" -H "Cookie: session=$AOC_SESSION_TOKEN" > "$day/input"

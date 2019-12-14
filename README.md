@@ -40,7 +40,4 @@ bin/lint
 
 # Initialize solution for first day
 bin/init day1
-
-# Convert instructions for first day to markdown and save to README
-bin/instructions day1 > day1/README.md
 ```
