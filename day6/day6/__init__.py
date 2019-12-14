@@ -25,6 +25,6 @@ def parse_input(io: TextIO) -> System:
     system = defaultdict(lambda: [])
 
     for body, satellite in map(parse_orbit, io):
-        system[body] += satellite
+        system[body].append(satellite)
 
     return system
