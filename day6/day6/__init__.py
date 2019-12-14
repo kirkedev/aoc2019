@@ -22,7 +22,7 @@ def parse_orbit(line: str) -> Tuple[str, str]:
 
 
 def parse_input(io: TextIO) -> System:
-    system = defaultdict(lambda: [])
+    system: System = defaultdict(lambda: [])
 
     for body, satellite in map(parse_orbit, io):
         system[body].append(satellite)
