@@ -6,3 +6,4 @@
 !.githooks
 
 *.egg-info
+__pycache__
